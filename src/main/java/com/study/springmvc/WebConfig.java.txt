@@ -9,5 +9,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan("com.study")  // 掃描設定
 @EnableWebMvc
 public class WebConfig extends WebMvcConfigurerAdapter{
-
+	// java 配置 View 渲染器 ，還沒import 記得
+	@Bean
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
+        return viewResolver;
+    }
+	
 }
