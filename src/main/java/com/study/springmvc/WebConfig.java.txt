@@ -1,0 +1,13 @@
+package com.study.springmvc;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+@Configuration				 // 註解為配置檔
+@ComponentScan("com.study")  // 設定掃描範圍
+@EnableWebMvc  				 // 啟動 WebMVC
+public class WebConfig extends WebMvcConfigurerAdapter{ // Adapter 適配器(連接器/插座) ps:應該就是個驅動程式或是叫翻譯器
+	
+}
