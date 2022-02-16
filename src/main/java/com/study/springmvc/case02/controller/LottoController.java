@@ -1,5 +1,12 @@
 package com.study.springmvc.case02.controller;
 
+import java.util.List;
+import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,6 +48,29 @@ public class LottoController {
 	public String delete(@PathVariable("index") int index) {
 		lottoService.deleteLotto(index);
 		return "redirect:../";
+	}
+	
+	// 統計
+	@RequestMapping("/aa")
+	public String aa () {
+		System.out.println("有連到");
+		
+		System.out.println(lottoService.getLottos());
+		
+		Long num = 
+		lottoService.getLottos()
+					.stream()
+					.flatMap(lotto -> lotto.stream())
+					.filter(new Predicate<Integer>() {
+						@Override
+						public boolean test(Integer t) {
+							return t == 5;
+						}
+					}).count();
+					System.out.println(num);
+					
+		
+		return "redirect:./";
 	}
 	
 	

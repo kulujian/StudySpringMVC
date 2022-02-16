@@ -21,7 +21,7 @@
 <p/>
 
 回家作業：
-<form class="pure-form" method="post" action="./">
+<form class="pure-form" method="post" action="./aa">
     <fieldset>
         <button type="submit" class="pure-button pure-button-primary">
         	統計每一號碼出現的次數
