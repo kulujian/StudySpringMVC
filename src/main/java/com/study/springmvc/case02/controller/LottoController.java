@@ -5,8 +5,10 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,21 +56,44 @@ public class LottoController {
 	@RequestMapping("/aa")
 	public String aa () {
 		System.out.println("有連到");
-		
 		System.out.println(lottoService.getLottos());
 		
-		Long num = 
-		lottoService.getLottos()
-					.stream()
-					.flatMap(lotto -> lotto.stream())
-					.filter(new Predicate<Integer>() {
-						@Override
-						public boolean test(Integer t) {
-							return t == 5;
-						}
-					}).count();
-					System.out.println(num);
-					
+		
+		
+//		lottoService.getLottos()
+//					.stream()
+//					.flatMap(lotto1 -> lotto1.stream())
+//					.filter(numAll -> lottoService.getLottos()
+//												.stream()
+//												.flatMap(lotto2 -> lotto2.stream())
+//												.distinct()
+//												.sorted()
+//												.anyMatch(num -> {
+//													System.out.println("anyMatch : " + num);
+//													return num == numAll;
+//												})
+//					)
+//					.forEach(new Consumer<Integer>() {
+//						int i = 0;
+//						@Override
+//						public void accept(Integer t) {
+//							i++;
+//							System.out.println("");
+//							System.out.println("====================");
+//							System.out.printf("%d  foreach : %d\n",i, t);
+//							System.out.println("====================");
+//							System.out.println("");
+//						}
+//					});
+		List<Integer> lottoNum =
+		lottoService.getLottos().stream()
+					.flatMap(lotto1 -> lotto1.stream())
+					.distinct()
+					.sorted()
+					.collect(Collectors.toList());
+		System.out.println(lottoNum);
+		
+		
 		
 		return "redirect:./";
 	}
