@@ -60,6 +60,35 @@ public class LottoController {
 		
 		
 		
+
+		List<Integer> lottoNum1 =
+				lottos.stream()
+					.flatMap(lottoStr1 -> lottoStr1.stream())
+					.distinct()
+					.sorted()
+					.collect(Collectors.toList());
+		List<Integer> lottoNum2 =
+				lottos.stream()
+					.flatMap(lottoStr2 -> lottoStr2.stream())
+					.sorted()
+					.collect(Collectors.toList());
+		Map<Integer, Integer> amountMap = new HashMap<Integer, Integer>();
+		
+		for (Integer numOnly : lottoNum1) {
+			Integer i = 0;
+			amountMap.put(numOnly, 0);
+			for (Integer numAll : lottoNum2) {
+				if(numOnly == numAll) {
+					i++;
+					amountMap.put(numOnly, i);
+				}
+			}
+		}
+		amountMap.entrySet().stream()
+							.sorted((Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) -> o2.getValue() - o1.getValue())
+							.forEach(t -> System.out.printf("%2d(%d) ", t.getKey(), t.getValue()));
+		
+		
 //		lottoService.getLottos()
 //					.stream()
 //					.flatMap(lotto1 -> lotto1.stream())
@@ -85,13 +114,13 @@ public class LottoController {
 //							System.out.println("");
 //						}
 //					});
-		List<Integer> lottoNum =
-		lottoService.getLottos().stream()
-					.flatMap(lotto1 -> lotto1.stream())
-					.distinct()
-					.sorted()
-					.collect(Collectors.toList());
-		System.out.println(lottoNum);
+//		List<Integer> lottoNum =
+//		lottoService.getLottos().stream()
+//					.flatMap(lotto1 -> lotto1.stream())
+//					.distinct()
+//					.sorted()
+//					.collect(Collectors.toList());
+//		System.out.println(lottoNum);
 		
 		
 		
