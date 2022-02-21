@@ -24,6 +24,7 @@ public class Exam {
 	public Exam() {
 //		super();
 	}
+	
 	public String getStudentId() {
 		return studentId;
 	}

@@ -12,41 +12,29 @@
 	action="${ pageContext.request.contextPath }/mvc/case03/exam/">
 	<fieldset>
 		<legend>Exam Form</legend>
-		<!-- 下面這段是因為bean裡面沒有，所以要自行HTML新增，它對應於Controller【】 -->
+		<!-- 一般的HTML表單不支援【PUT】和【DELETE】，會在web.xml配置HiddenHttpMethodFilter讓HTML表單可支援GET POST PUT DELETE  -->
 		<input type="hidden" id="_method" name="_method" value="${ _method }" />
-		學號：
-		<spform:input path="studentId" />
-		<p />
-		科目：
-		<spform:select path="examId">
-			<spform:option value="">請選擇</spform:option>
+		學號：<spform:input path="studentId" /><p />
+		科目：<spform:select path="examId">
+				<spform:option value="808">JavaSE 8 OCP I 808</spform:option>
+				<spform:option value="809">JavaSE 8 OCP II 809</spform:option>
+				<spform:option value="819">JavaSE 11 OCP 819</spform:option>
+				<spform:option value="900">JavaEE 7 OCP 900</spform:option>
 			<!-- 
 				<spform:option items="${examSubjects}" itemValue="id" itemLabel="name"></spform:option>
 			 -->
-		</spform:select>
-		<p />
-		日期：
-		<spform:input path="examDate" type="date" />
-		<p />
+		</spform:select><p />
+		日期：<spform:input path="examDate" type="date" /><p />
 		時段：
 		<!-- 時段改成 spform:checkboxes  -->
-		<spform:checkbox path="examSlot" value="A" />
-		上午(A)
-		<spform:checkbox path="examSlot" value="B" />
-		下午(B)
-		<spform:checkbox path="examSlot" value="C" />
-		晚上(C)
-		<p />
+		<spform:checkbox path="examSlot" value="A" />上午(A)
+		<spform:checkbox path="examSlot" value="B" />下午(B)
+		<spform:checkbox path="examSlot" value="C" />晚上(C)<p />
 		繳費：
 		<!-- 繳費改成 spform:radiobuttons  -->
-		<spform:radiobutton path="examPay" value="true" />
-		已繳
-		<spform:radiobutton path="examPay" value="false" />
-		未繳
-		<p />
-		備註：
-		<spform:textarea path="examNote" />
-		<p />
+		<spform:radiobutton path="examPay" value="true" />	 已繳
+		<spform:radiobutton path="examPay" value="false" />未繳<p />
+		備註：<spform:textarea path="examNote" /><p />
 
 		<button type="submit" class="pure-button pure-button-primary" ${ _method =='POST'?'':'disabled'}>
 			新增
