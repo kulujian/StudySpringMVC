@@ -32,8 +32,24 @@
     範例：9:(7)；18:(5)；31:(3)；12:(1)...
 </form>
 回家作業：
+<p/>
 
-
+<table class="pure-table">
+    <thead>
+    	<tr>
+    		<th>樂透號碼統計</th>
+    	</tr>
+    </thead>
+  	<tbody>
+    	<tr>
+			<td>
+		    	<c:forEach varStatus="status" var="num" items="${ numbers }">
+					${ num.getKey() }(${ num.getValue() })
+		    	</c:forEach>
+			</td>
+		</tr>    		
+	</tbody>
+</table>
 <p/>
 
 <table class="pure-table">

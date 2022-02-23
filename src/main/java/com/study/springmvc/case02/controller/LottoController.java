@@ -25,7 +25,9 @@ public class LottoController {
 	// lotto 主畫面
 	@RequestMapping("/")
 	public String index(Model model) {
+		// 取號後顯示
 		model.addAttribute("lottos", lottoService.getLottos());
+		
 		return "case02/show_lotto";
 	}
 	
@@ -54,8 +56,10 @@ public class LottoController {
 	@RequestMapping("/aa")
 	public String aa (Model model) {
 		System.out.println("有連到");
+		lottoService.showLottoNumbers ();
+		model.addAttribute("numbers", lottoService.showLottoNumbers());
+		model.addAttribute("lottos", lottoService.getLottos());
 		System.out.println(lottoService.getLottos());
-		
 		
 		
 		/*
@@ -120,7 +124,7 @@ public class LottoController {
 		
 		
 		//優化二
-		
+/*		
 		Map<Integer,Integer> amountMap3 = lottoService.getLottos().stream()
 					.flatMap(lottoStr -> lottoStr.stream())
 					.sorted()
@@ -162,12 +166,10 @@ public class LottoController {
 		.forEach(t -> System.out.printf("%2d(%d) ", t.getKey(), t.getValue()));
 		System.out.println();
 		System.out.println("=========================================");
+*/		
 		
 		
-
-		model.addAttribute("amount", lottoService.getLottos());
-		
-		return "redirect:./";
+		return "case02/show_lotto";
 	}
 	
 	
