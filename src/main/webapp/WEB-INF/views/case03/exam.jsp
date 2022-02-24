@@ -7,25 +7,28 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/pure-min.css">
-<script type="text/javascript" src="${ pageContext.request.contextPath }/js/exam.js"></script>
-<meta charset="UTF-8">
-<title>Show Exam</title>
-</head>
-<body style="padding: 15px">
-	<table width="100%">
-		<tr>
-			<!-- Exam Form -->
-			<td valign="top">
-				<%@ include file="exam_form.jspf" %>
-			</td>
-			<!-- Exam List -->
-			<td valign="top">
-				<%@ include file="exam_list.jspf" %>
-			</td>
-		</tr>
-	</table>
+	<head>
 	
-</body>
+		<%@ include file="include/header.jspf" %>
+		
+	</head>
+	
+	<body class="exambody">
+	
+		<table class="examtable">
+			<tr>
+				<!-- Exam Form -->
+				<td valign="top">
+					<%@ include file="exam_form.jspf" %>
+				</td>
+				<!-- Exam List -->
+				<td valign="top">
+					<%@ include file="exam_list.jspf" %>
+				</td>
+			</tr>
+		</table>
+		
+		<%@ include file="include/footer.jspf" %>
+		
+	</body>
 </html>

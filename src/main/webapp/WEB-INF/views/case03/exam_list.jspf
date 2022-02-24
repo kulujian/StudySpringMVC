@@ -38,7 +38,9 @@
 	    					</c:forEach>
     					</td>
 						<td>${ exam.examPay?'已繳':'未繳' }</td>
-						<td onclick="updateExamNote(${ status.index }, '${ exam.examNote }')" style="color: blue;text-decoration: underline;cursor: pointer;">${ exam.examNote }</td>
+						<td onclick="updateExamNote(${ status.index }, '${ exam.examNote }')" class="examlink">
+							${ exam.examNote }
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
