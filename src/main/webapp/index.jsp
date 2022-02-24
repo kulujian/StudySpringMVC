@@ -43,6 +43,27 @@
 		<li>
 			<a href="./mvc/case01/hello/sessionIfno">/sessionIfno(獲取原生 HttpSession 的資料(傳統方式獲得))</a>
 		</li>
+		<li>
+			<a href="./mvc/case02/time/now">view 渲染器 (渲染單一資料-方法一、ModelAndView.addObject(view),ModelAndView.setViewName("time", time))</a>
+		</li>
+		<li>
+			<a href="./mvc/case02/time/now2">view 渲染器 (渲染單一資料-方法二、new ModelAndView(view, "time", time))</a>
+		</li>
+		<li>
+			<a href="./mvc/case02/time/now3">view 渲染器 (渲染單一資料-方法三、new ModelAndView(view).addObject("time", time))</a>
+		</li>
+		<li>
+			<a href="./mvc/case02/time/now4">view 渲染器 (渲染單一資料-方法四、model.addAttribute("time", time)</a>
+		</li>
+		<li>
+			<a href="./mvc/case02/arraydata/">view 渲染器 (渲染多筆資料、List及Map渲染方式)</a>
+		</li>
+		<li>
+			<a href="./mvc/case02/lotto/">view 渲染器 (增刪查改，統計)</a>
+		</li>
+		<li>
+			<a href="./mvc/case03/exam/">表單綁定呈現及Tag使用介紹 (form表值綁定entity)</a>
+		</li>
 	</ol>
 </body>
 </html>

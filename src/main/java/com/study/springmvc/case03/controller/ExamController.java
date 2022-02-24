@@ -29,6 +29,8 @@ public class ExamController {
 		model.addAttribute("_method", "POST");
 		model.addAttribute("exams", examServices.query());
 		model.addAttribute("examSubjects", examServices.queryExamSubjectsList());
+		model.addAttribute("examPeriods", examServices.queryExamPeriodsList());
+		model.addAttribute("examPayStatus", examServices.queryExamPayStatusMap());
 		return "case03/exam";
 	}
 	
@@ -38,6 +40,9 @@ public class ExamController {
 		if(optExam.isPresent()) {
 			model.addAttribute("_method", "PUT");
 			model.addAttribute("exams", examServices.query());
+			model.addAttribute("examSubjects", examServices.queryExamSubjectsList());
+			model.addAttribute("examPeriods", examServices.queryExamPeriodsList());
+			model.addAttribute("examPayStatus", examServices.queryExamPayStatusMap());
 			model.addAttribute("exam", optExam.get());
 			return "case03/exam";
 		}

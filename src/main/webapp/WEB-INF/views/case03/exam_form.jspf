@@ -16,24 +16,34 @@
 		<input type="hidden" id="_method" name="_method" value="${ _method }" />
 		學號：<spform:input path="studentId" /><p />
 		科目：<spform:select path="examId">
+				<spform:option value="">請選擇</spform:option>
+				<spform:options items="${ examSubjects }" itemValue="id" itemLabel="name"/> 
+			<!-- 	使用後端傳資料取代		--
 				<spform:option value="808">JavaSE 8 OCP I 808</spform:option>
 				<spform:option value="809">JavaSE 8 OCP II 809</spform:option>
 				<spform:option value="819">JavaSE 11 OCP 819</spform:option>
 				<spform:option value="900">JavaEE 7 OCP 900</spform:option>
-			<!-- 
-				<spform:option items="${examSubjects}" itemValue="id" itemLabel="name"></spform:option>
 			 -->
 		</spform:select><p />
 		日期：<spform:input path="examDate" type="date" /><p />
 		時段：
 		<!-- 時段改成 spform:checkboxes  -->
+		<spform:checkboxes items="${ examPeriods }" path="examSlot" itemValue="id" itemLabel="name" />
+		<!-- 
 		<spform:checkbox path="examSlot" value="A" />上午(A)
 		<spform:checkbox path="examSlot" value="B" />下午(B)
-		<spform:checkbox path="examSlot" value="C" />晚上(C)<p />
+		<spform:checkbox path="examSlot" value="C" />晚上(C)
+		 -->
+		<p />
 		繳費：
 		<!-- 繳費改成 spform:radiobuttons  -->
+		<spform:radiobuttons items="${ examPayStatus }" path="examPay" />
+		
+		<!-- 
 		<spform:radiobutton path="examPay" value="true" />	 已繳
-		<spform:radiobutton path="examPay" value="false" />未繳<p />
+		<spform:radiobutton path="examPay" value="false" /> 未繳
+		 -->
+		<p />
 		備註：<spform:textarea path="examNote" /><p />
 
 		<button type="submit" class="pure-button pure-button-primary" ${ _method =='POST'?'':'disabled'}>
