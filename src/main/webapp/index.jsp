@@ -64,6 +64,15 @@
 		<li>
 			<a href="./mvc/case03/exam/">表單綁定呈現及Tag使用介紹 (form表值綁定entity)</a>
 		</li>
+		<li>
+			<a href="./mvc/lab/fund/">fund</a>
+		</li>
+		<li>
+			<a href="./mvc/lab/fundstock/">fundstock</a>
+		</li>
+		<li>
+			<a href="./html/fund.html">fund_HTM</label></a>
+		</li>
 	</ol>
 </body>
 </html>
