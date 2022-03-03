@@ -2,6 +2,7 @@ package com.study.springmvc.lab.controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
@@ -10,12 +11,17 @@ import static java.util.stream.Collectors.summingInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.study.springmvc.case03.entity.Exam;
 import com.study.springmvc.lab.entity.Fund;
 import com.study.springmvc.lab.entity.Fundstock;
 import com.study.springmvc.lab.repository.FundDao;
@@ -45,10 +51,10 @@ public class FundstockController {
 //		model.addAttribute("funds", funds);
 //		model.addAttribute("pageTotalCount", pageTotalcount);
 //		return "lab/fundstock";
-		return "redirect: ./page/" + pageNumber;
+		return "redirect: ./page/" + pageNumber + "/";
 	}
 
-	@GetMapping("/page/{pageNumber}")
+	@GetMapping("/page/{pageNumber}/")
 //	@ResponseBody
 //	public List<Fundstock> page(@PathVariable("pageNumber") int pageNumber){
 	public String page(@PathVariable("pageNumber") int pageNumber, @ModelAttribute Fundstock fundstock, Model model){
@@ -57,7 +63,8 @@ public class FundstockController {
 		int offset = (pageNumber - 1) * FundstockDao.LIMIT;
 		List<Fundstock> fundstocks = fundstockDao.queryPage(offset);
 		List<Fund> funds = fundDao.queryAll();
-		int pageTotalcount = fundstocks.size() / FundstockDao.LIMIT;
+		int pageTotalcount = fundstockDao.count() / FundstockDao.LIMIT;
+		System.out.println("page : " + pageTotalcount);
 		model.addAttribute("_method", "POST");
 		model.addAttribute("fundstocks", fundstocks);
 		model.addAttribute("funds", funds);
@@ -67,10 +74,27 @@ public class FundstockController {
 		return "lab/fundstock";
 	}
 	
-	@GetMapping("/{sid}")
-	@ResponseBody
-	public Fundstock page(@PathVariable("sid") Integer sid){
-		return fundstockDao.get(sid);
+	@GetMapping("/page/{pageNumber}/{sid}")
+//	@ResponseBody
+//	public Fundstock get(@PathVariable("sid") Integer sid){
+//		return fundstockDao.get(sid);
+	public String get(@PathVariable("sid") Integer sid, 
+						@PathVariable("pageNumber") Integer pageNumber, 
+						@ModelAttribute Fundstock fundstock, Model model){
+		this.pageNumber = pageNumber;
+		int offset = (pageNumber - 1) * FundstockDao.LIMIT;
+		List<Fundstock> fundstocks = fundstockDao.queryPage(offset);
+		List<Fund> funds = fundDao.queryAll();
+		int pageTotalcount = fundstockDao.count() / FundstockDao.LIMIT;
+		System.out.println("get : " + pageTotalcount);
+		model.addAttribute("_method", "POST");
+		model.addAttribute("fundstocks", fundstocks);
+		model.addAttribute("fundstock", fundstockDao.get(sid));
+		model.addAttribute("funds", funds);
+		model.addAttribute("pageTotalCount", pageTotalcount);
+		model.addAttribute("groupMap", getGroupMap());
+		
+		return "lab/fundstock";
 	}
 	
 
@@ -90,5 +114,20 @@ public class FundstockController {
 //				.sorted((Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) -> o2.getValue() - o1.getValue())
 //				.collect(groupingBy(Fundstock::getSymbol, 
 //						summingInt(Fundstock::getShare)));
+	}
+	
+	@PostMapping("/")  // 註意，若看到@requestBody 
+	public int add(@RequestBody Fundstock fundstock) {
+		return fundstockDao.add(fundstock);
+	}
+	
+	@PutMapping("/")
+	public int update(@RequestBody Fundstock fundstock) {
+		return fundstockDao.update(fundstock);
+	}
+	
+	@DeleteMapping("/{fid}")
+	public int delete(@PathVariable("fid") Integer sid) {
+		return fundstockDao.delete(sid);
 	}
 }

@@ -24,25 +24,25 @@
 		// 註冊相關事件
 		$('#add').on('click', function() {
 			addOrUpdate('POST');
-		})
+		});
 		// click tr 時 { 傳 this}
 		$('#myTable').on('click', 'tr', function() {
 			getItem(this);
-		})
+		});
 		$('#upt').on('click', function() {
 			addOrUpdate('PUT');
 			btnAttr(0);
-		})
+		});
 		$('#del').on('click', function() {
 			deleteItem();
 			btnAttr(0);
-		})
+		});
 		$('#rst').on('click', function() {
 			btnAttr(0);
 			// From reset
 			$('#myForm').trigger('reset');
 			//$('#myForm').trigger('submit'); 會吃表單 Action 路徑
-		})
+		});
 		
 	});
 	

@@ -24,6 +24,7 @@ public class ExamController {
 	@Autowired
 	private ExamService examServices;
 	
+	// 首頁
 	@GetMapping("/")
 	public String index(@ModelAttribute Exam exam, Model model) {
 		model.addAttribute("_method", "POST");
@@ -34,6 +35,7 @@ public class ExamController {
 		return "case03/exam";
 	}
 	
+	// 依index選取資料列
 	@GetMapping("/{index}")
 	public String get(@PathVariable("index") int index, Model model) {
 		Optional<Exam> optExam = examServices.get(index);
@@ -50,7 +52,7 @@ public class ExamController {
 		return "redirect:./";
 	}
 	
-	// 這邊
+	// 新增
 	@PostMapping("/")
 	public String add(Exam exam) {
 		// 設邊需要接個 Boolean 值
@@ -58,13 +60,15 @@ public class ExamController {
 		return "redirect:./";
 	}
 	
+	// 修改
 	@PutMapping("/{index}")
 	public String update(@PathVariable("index") int index, Exam exam) {
 		// 設邊需要接個 Boolean 值
 		examServices.update(index,exam);
 		return "redirect:./";
 	}
-
+	
+	// 修改note
 	@PutMapping("/{index}/exam_note")
 	public String updateExamNote(@PathVariable("index") int index, Exam exam) {
 		// 設邊需要接個 Boolean 值
@@ -72,7 +76,7 @@ public class ExamController {
 		return "redirect:../";
 	}
 	
-
+	// 刪除
 	@DeleteMapping("/{index}")
 	public String delete(@PathVariable("index") int index) {
 		// 設邊需要接個 Boolean 值

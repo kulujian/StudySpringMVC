@@ -61,9 +61,14 @@
 	<!-- c3p0 pool -->
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
 		<property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
+		<!-- 
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/finweb?serverTimezone=GMT%2B8&amp;characterEncoding=utf-8&amp;useUnicode=true" />
 		<property name="user" value="root" />
 		<property name="password" value="Password123" />
+		 -->
+		<property name="jdbcUrl" value="jdbc:mysql://192.168.1.189:3306/finweb?serverTimezone=GMT%2B8&amp;characterEncoding=utf-8&amp;useUnicode=true" />
+		<property name="user" value="maxe0701" />
+		<property name="password" value="Love1025" />
 		
 		<property name="maxConnectionAge" value="300" />
 		<property name="maxIdleTimeExcessConnections" value="50" />
