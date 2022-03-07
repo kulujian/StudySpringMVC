@@ -69,7 +69,7 @@
 								href="${ pageContext.request.contextPath }/html/fund.html">Fund
 								Form（Ajax）</a>
 						</legend>
-						<input type="hidden" id="_method" name="_method" value="${ _method }">
+						<input type="text" id="_method" name="_method" value="${ _method }" readonly="readonly"><br/>
 						序號：
 						<spform:input path="sid"  readonly="true" />
 						<spform:errors path="sid" cssClass="error" />
@@ -92,10 +92,10 @@
 						<button type="submit" class="pure-button pure-button-primary" ${ _method=='POST'?'':'disabled' } >
 							新增
 						</button>
-						<button type="button" class="pure-button pure-button-primary" ${ _method=='PUT'?'':'disabled' }  onclick="updateFundstock(${index})">
+						<button type="button" class="pure-button pure-button-primary" ${ _method=='PUT'?'':'disabled' }  onclick="updateFundstock(${sid})">
 							修改
 						</button>
-						<button type="button" class="pure-button pure-button-primary" ${ _method=='PUT'?'':'disabled' }  onclick="deleteFundstock(${index})">
+						<button type="button" class="pure-button pure-button-primary" ${ _method=='PUT'?'':'disabled' }  onclick="deleteFundstock(${sid})">
 							刪除
 						</button>
 						<button type="button" class="pure-button pure-button-primary" >

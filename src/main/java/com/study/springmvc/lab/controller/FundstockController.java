@@ -2,9 +2,6 @@ package com.study.springmvc.lab.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 
@@ -21,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.study.springmvc.case03.entity.Exam;
 import com.study.springmvc.lab.entity.Fund;
 import com.study.springmvc.lab.entity.Fundstock;
 import com.study.springmvc.lab.repository.FundDao;
@@ -57,7 +53,7 @@ public class FundstockController {
 	@GetMapping("/page/{pageNumber}/")
 //	@ResponseBody
 //	public List<Fundstock> page(@PathVariable("pageNumber") int pageNumber){
-	public String page(@PathVariable("pageNumber") int pageNumber, @ModelAttribute Fundstock fundstock, Model model){
+	public String page(@PathVariable("pageNumber") Integer pageNumber, @ModelAttribute Fundstock fundstock, Model model){
 		// 1 => 0, 2 => 5, 3 => 10，....
 		this.pageNumber = pageNumber;
 		int offset = (pageNumber - 1) * FundstockDao.LIMIT;
@@ -87,7 +83,7 @@ public class FundstockController {
 		List<Fund> funds = fundDao.queryAll();
 		int pageTotalcount = fundstockDao.count() / FundstockDao.LIMIT;
 		System.out.println("get : " + pageTotalcount);
-		model.addAttribute("_method", "POST");
+		model.addAttribute("_method", "PUT");
 		model.addAttribute("fundstocks", fundstocks);
 		model.addAttribute("fundstock", fundstockDao.get(sid));
 		model.addAttribute("funds", funds);
@@ -101,33 +97,35 @@ public class FundstockController {
 	@GetMapping("/group/test")
 	@ResponseBody
 	private Map<String, Integer> getGroupMap() {
-		/**
-		 * select s.symbol, sum(s.share) as share
-			from fundstock s
-			group by s.symbol 
+		/** 以下[Java 8]語法同等於此[SQL]語法
+		 * 	select s.symbol, sum(s.share) as share
+		 * 	from fundstock s
+		 * 	group by s.symbol 
 		 */
 		List<Fundstock> fundstocks =  fundstockDao.queryAll();
 		return fundstocks.stream()
 				.collect(groupingBy(Fundstock::getSymbol, 
-						summingInt(Fundstock::getShare)));
-//				.entrySet().stream()
-//				.sorted((Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) -> o2.getValue() - o1.getValue())
-//				.collect(groupingBy(Fundstock::getSymbol, 
-//						summingInt(Fundstock::getShare)));
+									summingInt(Fundstock::getShare)));
 	}
 	
 	@PostMapping("/")  // 註意，若看到@requestBody 
 	public int add(@RequestBody Fundstock fundstock) {
-		return fundstockDao.add(fundstock);
+		System.out.println("PostMapp");
+		fundstockDao.add(fundstock);
+		return 0;
 	}
 	
-	@PutMapping("/")
-	public int update(@RequestBody Fundstock fundstock) {
-		return fundstockDao.update(fundstock);
+	@PutMapping("/aaa/")
+	public String update(@RequestBody Fundstock fundstock) {
+//		System.out.println(fundstockDao.update(fundstock));
+		System.out.println(fundstock.getFid());
+		System.out.println("PutMapp");
+		return "redircet: ./";
 	}
 	
 	@DeleteMapping("/{fid}")
 	public int delete(@PathVariable("fid") Integer sid) {
+		System.out.println("DeleteMapp");
 		return fundstockDao.delete(sid);
 	}
 }

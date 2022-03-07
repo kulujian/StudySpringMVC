@@ -58,9 +58,11 @@ function drawChartHist(symbol, quotes) {
 
 // -- CRUD 功能
 
-function updateFundstock(index) {
-	document.getElementById('exam').action = '/springmvc/mvc/case03/exam/' + index;
-	document.getElementById('exam').submit();
+function updateFundstock(sid) {
+	var pageNumber = Math.floor(sid / 5);
+	alert(pageNumber);
+	document.getElementById('fundstock').action = '/springmvc/mvc/lab/fundstock/aaa/';
+	document.getElementById('fundstock').submit();
 }
 
 function deleteFundstock(index) {

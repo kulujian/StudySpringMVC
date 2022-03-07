@@ -24,7 +24,7 @@ public class PriceController {
 	public List<HistoricalQuote> queryHistoricalQuotes(@PathVariable("symbol") String symbol){
 		Calendar from = Calendar.getInstance();
 		Calendar to = Calendar.getInstance();
-		from.add(Calendar.YEAR, -1); // from 1 year ago
+		from.add(Calendar.MONTH, -1); // from 1 year ago
 		List<HistoricalQuote> googleHistQuotes = null;
 		try {
 			Stock google = YahooFinance.get(symbol);
