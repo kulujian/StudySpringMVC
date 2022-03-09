@@ -20,5 +20,5 @@ public interface FundstockDao {
 	// 修改
 	int update(Fundstock fundstock);
 	// 刪除
-	int delete(Integer sid);
+	int delete(Fundstock fundstock);
 }

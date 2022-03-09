@@ -59,7 +59,7 @@ function drawChartHist(symbol, quotes) {
 // -- CRUD 功能
 
 function updateFundstock(sid) {
-	document.getElementById('fundstock').action = '/springmvc/mvc/lab/fundstock/aaa/';
+	document.getElementById('fundstock').action = '/springmvc/mvc/lab/fundstock/';
 	document.getElementById('fundstock').submit();
 }
 

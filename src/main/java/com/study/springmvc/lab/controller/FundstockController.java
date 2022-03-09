@@ -2,12 +2,16 @@ package com.study.springmvc.lab.controller;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.validation.Valid;
+
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,12 +38,12 @@ public class FundstockController {
 	@Autowired
 	private FundDao fundDao;
 
-	private int pageNumber = -1;
+//	private int pageNumber = -1;
 	
 	@GetMapping("/")
 //	@ResponseBody
 //	public List<Fundstock> index(){
-	public String index() {//@ModelAttribute Fundstock fundstock, Model model) {
+	public String index(@ModelAttribute Fundstock fundstock, Model model) {
 //		List<Fundstock> fundstocks = fundstockDao.queryAll();
 //		List<Fund> funds = fundDao.queryAll();
 //		int pageTotalcount = fundstocks.size() / FundstockDao.LIMIT;
@@ -47,10 +51,12 @@ public class FundstockController {
 //		model.addAttribute("fundstocks", fundstocks);
 //		model.addAttribute("funds", funds);
 //		model.addAttribute("pageTotalCount", pageTotalcount);
-//		return "lab/fundstock";
-		return "redirect: ./page/" + pageNumber + "/";
+//		model.addAttribute("groupMap", getGroupMap());
+		return "redirect: ./" + 0;
+//		return "redirect: ./page/" + pageNumber + "/";
 	}
-
+	
+/*
 	@GetMapping("/page/{pageNumber}/")
 //	@ResponseBody
 //	public List<Fundstock> page(@PathVariable("pageNumber") int pageNumber){
@@ -72,11 +78,25 @@ public class FundstockController {
 		
 		return "lab/fundstock";
 	}
+*/
 	
-	@GetMapping("/page/{pageNumber}/{sid}")
+	@GetMapping("/{sid}")
+//	@GetMapping("/page/{pageNumber}/{sid}")
 //	@ResponseBody
-//	public Fundstock get(@PathVariable("sid") Integer sid){
-//		return fundstockDao.get(sid);
+	public String get(@PathVariable("sid") Integer sid, @ModelAttribute Fundstock fundstock, Model model){
+		List<Fundstock> fundstocks = fundstockDao.queryAll();
+		List<Fund> funds = fundDao.queryAll();
+		model.addAttribute("_method", "POST");
+		model.addAttribute("fundstocks", fundstocks);
+		model.addAttribute("funds", funds);
+		model.addAttribute("groupMap", getGroupMap());
+		if(sid > 0) {
+			model.addAttribute("fundstock", fundstockDao.get(sid));
+			model.addAttribute("_method", "PUT");
+		}
+		
+		return "lab/fundstock";
+/*
 	public String get(@PathVariable("sid") Integer sid, 
 						@PathVariable("pageNumber") Integer pageNumber, 
 						@ModelAttribute Fundstock fundstock, Model model){
@@ -94,6 +114,7 @@ public class FundstockController {
 		model.addAttribute("groupMap", getGroupMap());
 		
 		return "lab/fundstock";
+*/
 	}
 	
 
@@ -113,25 +134,40 @@ public class FundstockController {
 	
 	@PostMapping("/")  // 注意，若看到@requestBody 註解時，前端很有可能是以json stream 傳值
 //	@ResponseBody
-	public String add(@RequestBody Fundstock fundstock) {
+	public String add(Fundstock fundstock, BindingResult result, Model model) {
+		if(result.hasErrors()) { // 是否有錯誤發生
+			model.addAttribute("_method", "POST");
+			model.addAttribute("fundstock", fundstock);
+			System.out.println("有錯誤發生");
+		}
 		System.out.println("PostMapp");
-//		fundstockDao.add(fundstock);
-		return "redirect: ../../../";
+		fundstockDao.add(fundstock);
+		return "redirect: ./";
 //		return fundstock;
 //		return fundstockDao.add(fundstock);
 	}
 	
 	@PutMapping("/")
-	public String update(@RequestBody Fundstock fundstock) {
-//		System.out.println(fundstockDao.update(fundstock));
-		System.out.println(fundstock.getFid());
+	public String update(Fundstock fundstock, BindingResult result, Model model) {
+		if(result.hasErrors()) { // 是否有錯誤發生
+			model.addAttribute("_method", "PUT");
+			model.addAttribute("fundstock", fundstock);
+			System.out.println("有錯誤發生");
+		}
 		System.out.println("PutMapp");
+		fundstockDao.update(fundstock);
 		return "redirect: ./";
 	}
 	
-	@DeleteMapping("/{fid}")
-	public int delete(@PathVariable("fid") Integer sid) {
+	@DeleteMapping("/")
+	public String delete(Fundstock fundstock, BindingResult result, Model model) {
+		if(result.hasErrors()) { // 是否有錯誤發生
+			model.addAttribute("_method", "PUT");
+			model.addAttribute("fundstock", fundstock);
+			System.out.println("有錯誤發生");
+		}
 		System.out.println("DeleteMapp");
-		return fundstockDao.delete(sid);
+		fundstockDao.delete(fundstock);
+		return "redirect: ./";
 	}
 }

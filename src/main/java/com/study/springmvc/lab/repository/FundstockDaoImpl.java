@@ -134,9 +134,9 @@ public class FundstockDaoImpl implements FundstockDao{
 
 	//	【刪除】
 	@Override
-	public int delete(Integer sid) {
-		String sql = "delete from funstock where sid = ?";
-		int rowcount = jdbcTemplate.update(sql, sid);
+	public int delete(Fundstock fundstock) {
+		String sql = "delete from fundstock where sid = ?";
+		int rowcount = jdbcTemplate.update(sql, fundstock.getSid());
 		return rowcount;
 	}
 
