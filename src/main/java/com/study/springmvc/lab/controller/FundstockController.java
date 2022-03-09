@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.study.springmvc.lab.entity.Fund;
 import com.study.springmvc.lab.entity.Fundstock;
@@ -38,7 +39,7 @@ public class FundstockController {
 	@GetMapping("/")
 //	@ResponseBody
 //	public List<Fundstock> index(){
-	public String index(@ModelAttribute Fundstock fundstock, Model model) {
+	public String index() {//@ModelAttribute Fundstock fundstock, Model model) {
 //		List<Fundstock> fundstocks = fundstockDao.queryAll();
 //		List<Fund> funds = fundDao.queryAll();
 //		int pageTotalcount = fundstocks.size() / FundstockDao.LIMIT;
@@ -53,7 +54,9 @@ public class FundstockController {
 	@GetMapping("/page/{pageNumber}/")
 //	@ResponseBody
 //	public List<Fundstock> page(@PathVariable("pageNumber") int pageNumber){
-	public String page(@PathVariable("pageNumber") Integer pageNumber, @ModelAttribute Fundstock fundstock, Model model){
+	public String page(@PathVariable("pageNumber") Integer pageNumber, 
+					   @ModelAttribute Fundstock fundstock, 
+					   Model model){
 		// 1 => 0, 2 => 5, 3 => 10，....
 		this.pageNumber = pageNumber;
 		int offset = (pageNumber - 1) * FundstockDao.LIMIT;
@@ -95,7 +98,7 @@ public class FundstockController {
 	
 
 	@GetMapping("/group/test")
-	@ResponseBody
+//	@ResponseBody
 	private Map<String, Integer> getGroupMap() {
 		/** 以下[Java 8]語法同等於此[SQL]語法
 		 * 	select s.symbol, sum(s.share) as share
@@ -108,19 +111,22 @@ public class FundstockController {
 									summingInt(Fundstock::getShare)));
 	}
 	
-	@PostMapping("/")  // 註意，若看到@requestBody 
-	public int add(@RequestBody Fundstock fundstock) {
+	@PostMapping("/")  // 注意，若看到@requestBody 註解時，前端很有可能是以json stream 傳值
+//	@ResponseBody
+	public String add(@RequestBody Fundstock fundstock) {
 		System.out.println("PostMapp");
-		fundstockDao.add(fundstock);
-		return 0;
+//		fundstockDao.add(fundstock);
+		return "redirect: ../../../";
+//		return fundstock;
+//		return fundstockDao.add(fundstock);
 	}
 	
-	@PutMapping("/aaa/")
+	@PutMapping("/")
 	public String update(@RequestBody Fundstock fundstock) {
 //		System.out.println(fundstockDao.update(fundstock));
 		System.out.println(fundstock.getFid());
 		System.out.println("PutMapp");
-		return "redircet: ./";
+		return "redirect: ./";
 	}
 	
 	@DeleteMapping("/{fid}")

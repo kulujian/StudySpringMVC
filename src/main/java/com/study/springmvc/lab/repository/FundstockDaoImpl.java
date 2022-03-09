@@ -127,8 +127,8 @@ public class FundstockDaoImpl implements FundstockDao{
 	//	【修改】
 	@Override
 	public int update(Fundstock fundstock) {
-		String sql = "update fundstock set fid=?, symbol=?, share=?;";
-		int rowcount = jdbcTemplate.update(sql, fundstock.getFid(), fundstock.getSymbol(), fundstock.getShare());
+		String sql = "update fundstock set fid=?, symbol=?, share=? where sid=?;";
+		int rowcount = jdbcTemplate.update(sql, fundstock.getFid(), fundstock.getSymbol(), fundstock.getShare(), fundstock.getSid());
 		return rowcount;
 	}
 

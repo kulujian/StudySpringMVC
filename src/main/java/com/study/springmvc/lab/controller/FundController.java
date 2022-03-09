@@ -67,13 +67,14 @@ public class FundController {
 	
 	
 	
-	@PostMapping("/")  // 註意，若看到@requestBody 
+	@PostMapping("/")  // 注意，若看到@requestBody 註解時，前端很有可能是以json stream 傳值
 	public int add(@RequestBody Fund fund) {
 		return fundDao.add(fund);
 	}
 	
 	@PutMapping("/")
 	public int update(@RequestBody Fund fund) {
+		System.out.println("PUTMapp");
 		return fundDao.update(fund);
 	}
 	
