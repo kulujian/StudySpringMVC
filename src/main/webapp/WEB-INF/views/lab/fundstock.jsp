@@ -98,7 +98,7 @@
 						<button type="button" class="pure-button pure-button-primary" ${ _method=='PUT'?'':'disabled' }  onclick="deleteFundstock(${sid})">
 							刪除
 						</button>
-						<button type="button" class="pure-button pure-button-primary" >
+						<button type="button" class="pure-button pure-button-primary" onclick="resetFundstock()">
 							重置
 						</button>
 						<p />
@@ -111,7 +111,6 @@
 					<fieldset>
 						<legend>
 							Fundstock List&nbsp;|&nbsp; 
-							<!-- 
 							<a href="${ pageContext.request.contextPath }/mvc/lab/fundstock/page/0/">全部</a>
 							&nbsp;|&nbsp;
 							<c:forEach var="num" begin="1" end="${ pageTotalCount + 1 }">
@@ -119,7 +118,6 @@
 									${ num }
 								</a>
 							</c:forEach>
-							 -->
 						</legend>
 						<table class="pure-table pure-table-bordered">
 							<thead>

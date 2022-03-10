@@ -3,8 +3,6 @@ package com.study.springmvc.lab.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Valid;
-
 import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.summingInt;
 
@@ -18,10 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.study.springmvc.lab.entity.Fund;
 import com.study.springmvc.lab.entity.Fundstock;
@@ -38,28 +33,14 @@ public class FundstockController {
 	@Autowired
 	private FundDao fundDao;
 
-//	private int pageNumber = -1;
+	private int pageNumber = -1;
 	
 	@GetMapping("/")
-//	@ResponseBody
-//	public List<Fundstock> index(){
-	public String index(@ModelAttribute Fundstock fundstock, Model model) {
-//		List<Fundstock> fundstocks = fundstockDao.queryAll();
-//		List<Fund> funds = fundDao.queryAll();
-//		int pageTotalcount = fundstocks.size() / FundstockDao.LIMIT;
-//		model.addAttribute("_method", "POST");
-//		model.addAttribute("fundstocks", fundstocks);
-//		model.addAttribute("funds", funds);
-//		model.addAttribute("pageTotalCount", pageTotalcount);
-//		model.addAttribute("groupMap", getGroupMap());
-		return "redirect: ./" + 0;
-//		return "redirect: ./page/" + pageNumber + "/";
+	public String index() {
+		return "redirect: ./page/" + pageNumber + "/";
 	}
 	
-/*
 	@GetMapping("/page/{pageNumber}/")
-//	@ResponseBody
-//	public List<Fundstock> page(@PathVariable("pageNumber") int pageNumber){
 	public String page(@PathVariable("pageNumber") Integer pageNumber, 
 					   @ModelAttribute Fundstock fundstock, 
 					   Model model){
@@ -78,25 +59,8 @@ public class FundstockController {
 		
 		return "lab/fundstock";
 	}
-*/
 	
-	@GetMapping("/{sid}")
-//	@GetMapping("/page/{pageNumber}/{sid}")
-//	@ResponseBody
-	public String get(@PathVariable("sid") Integer sid, @ModelAttribute Fundstock fundstock, Model model){
-		List<Fundstock> fundstocks = fundstockDao.queryAll();
-		List<Fund> funds = fundDao.queryAll();
-		model.addAttribute("_method", "POST");
-		model.addAttribute("fundstocks", fundstocks);
-		model.addAttribute("funds", funds);
-		model.addAttribute("groupMap", getGroupMap());
-		if(sid > 0) {
-			model.addAttribute("fundstock", fundstockDao.get(sid));
-			model.addAttribute("_method", "PUT");
-		}
-		
-		return "lab/fundstock";
-/*
+	@GetMapping("/page/{pageNumber}/{sid}")
 	public String get(@PathVariable("sid") Integer sid, 
 						@PathVariable("pageNumber") Integer pageNumber, 
 						@ModelAttribute Fundstock fundstock, Model model){
@@ -112,9 +76,8 @@ public class FundstockController {
 		model.addAttribute("funds", funds);
 		model.addAttribute("pageTotalCount", pageTotalcount);
 		model.addAttribute("groupMap", getGroupMap());
-		
+
 		return "lab/fundstock";
-*/
 	}
 	
 

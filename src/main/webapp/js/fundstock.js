@@ -68,3 +68,7 @@ function deleteFundstock(sid) {
 	updateFundstock(sid);
 }
 
+function resetFundstock(){
+	location.href="./"
+} 
+
