@@ -53,13 +53,17 @@
 			<td valign="top">
 				<form class="pure-form">
 					<fieldset>
-						<legend> Fund List&nbsp;|&nbsp;
+						<legend> 
+							Fund List&nbsp;|&nbsp;
 							<samp class="mylink" onclick="queryPage(0)">全部</samp>
 							&nbsp;|&nbsp;
 							<!-- HomeWork 修改成動態分頁處理 -->
-							<samp class="mylink" onclick="queryPage(1)">1</samp>&nbsp;
-							<samp class="mylink" onclick="queryPage(2)">2</samp>
-						
+							<samp id="pagesLink">
+							<!-- 
+								<samp class="mylink" onclick="queryPage(1)">1</samp>
+								<samp class="mylink" onclick="queryPage(2)">2</samp>
+							 -->
+							</samp>
 						</legend>
 						<table id="myTable" class="pure-table pure-table-bordered">
 							<thead>

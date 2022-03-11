@@ -8,15 +8,14 @@
 				fname: { // fname 指的是 input Tag的 name 而不是 id
 					//required: true,  // 如何Tag端的打，這邊可以不打
 					rangelength: [2,50]
-				},
+				}
 			},
 			messages: { // 自訂錯誤訊息
 				fname: { // fname 指的是 input Tag的 name 而不是 id
 					required: "請輸入基金名稱",
 					rangelength: "基金名稱長度必介於 {0}~{1} 之間"
-				},
-				
-			},
+				}
+			}
 		});
 		// 用呼叫的方式執行方法，比較好
 		// Fund List 的資料列表
@@ -46,7 +45,7 @@
 		
 	});
 	
-	function queryPage(pageNumber){
+	function queryFund(pageNumber){
 		var path = "../mvc/lab/fund/";
 		if(pageNumber > 0){
 			path = "../mvc/lab/fund/page/" + pageNumber;
@@ -54,8 +53,18 @@
 
 		// 取得所有 fund 資料
 		$.get(path, function(datas, status) {
-			console.log(datas);
+			console.log(Object.keys(datas).length);
 			console.log(status);
+			var pageNumber = Object.keys(datas).length;
+			if(pageNumber % 5 > 0){
+				alert("進來了")	;
+				for(var i=1; i<(pageNumber/5)+1; i++){
+					console.log(i);
+					var html = "<samp class='mylink' onclick='queryPage({0})'>{1}</samp>&nbsp;";
+					$('#pagesLink').append(String.format(html, i, i));
+				}
+			}else{
+			}
 			// 清除目前 myTable 上的舊有資料
 			$('#myTable tbody').empty();
 			//$('#myTable tbody').remove();
@@ -64,6 +73,7 @@
 				var html = '<tr><td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td></tr>';
 				$('#myTable').append(String.format(html, item.fid, item.fname, item.createtime, item.fundstocks));
 			});
+			
 		});
 	}
 
@@ -154,7 +164,7 @@
 	
 	// Fund List 的資料列表
 	function table_list() {
-		queryPage(0);
+		queryFund(0);
 	}
 	
 	
